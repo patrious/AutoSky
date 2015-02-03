@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Placemarks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Placemark>
+    <Name>Moon</Name>
+    <Longitude>-146.821</Longitude>
+    <Latitude>12.9</Latitude>
+    <Range>120000</Range>
+    <ImageLink>http://i.imgur.com/q1mDkE7.jpg</ImageLink>
+  </Placemark>
+  <Placemark>
+    <Name>Pisces</Name>
+    <Longitude>-164.66690382878</Longitude>
+    <Latitude>14.5718570054678</Latitude>
+    <Range>2852388.73387934</Range>
+  </Placemark>
+  <Placemark>
+    <Name>Aries</Name>
+    <Longitude>-135.914724659999</Longitude>
+    <Latitude>24.2079629033797</Latitude>
+    <Range>1530217.18242256</Range>
+  </Placemark>
+  <Placemark>
+    <Name>Hydra</Name>
+    <Longitude>-41.6523688852733</Longitude>
+    <Latitude>-11.0242419876387</Latitude>
+    <Range>3341106.83692659</Range>
+  </Placemark>
+  <Placemark>
+    <Name>Polaris</Name>
+    <Longitude>36.5565656312228</Longitude>
+    <Latitude>89.8603242755137</Latitude>
+    <Range>2841346.94919477</Range>
+  </Placemark>
+  <Placemark>
+    <Name>virgo</Name>
+    <Longitude>28.8916946283718</Longitude>
+    <Latitude>-7.83195662350233</Latitude>
+    <Range>6378137.207</Range>
+  </Placemark>
+</Placemarks>

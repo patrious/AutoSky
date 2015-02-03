@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <title>Sample</title>
+   <script src="http://www.google.com/jsapi?key=ABQIAAAAuPsJpk3MBtDpJ4G8cqBnjRRaGTYH6UMl8mADNa0YKuWNNa8VNxQCzVBXTx2DYyXGsTOxpWhvIG7Djw"> </script>
+    <script type="text/javascript">
+        var ge;
+
+        var placemark;
+        google.load("earth", "1");
+	    google.setOnLoadCallback(init);
+        function init() {
+            //Creates instance of the 3D map of the google sky
+            google.earth.createInstance('map3d', initCallback, failureCallback);
+        }
+
+        function initCallback(instance) {
+            //initialize the Google Sky Map
+            ge = instance;
+            ge.getOptions().setMapType(ge.MAP_TYPE_SKY);
+            ge.getWindow().setVisibility(true);
+
+            // add a navigation control
+            ge.getNavigationControl().setVisibility(ge.VISIBILITY_AUTO);
+            
+            // add some layers
+            ge.getLayerRoot().enableLayerById(ge.LAYER_BORDERS, true);
+            ge.getLayerRoot().enableLayerById(ge.LAYER_ROADS, true);
+
+            window.external.GoogleSkyStatus(true);
+        }
+
+        function failureCallback(errorCode) {
+            window.external.GoogleSkyStatus(errorCode);
+        }
+
+        function sendGoogleSkyCoordinates() {
+            var lookAt = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
+
+            var coordinates = new Array();
+            coordinates[0] = lookAt.getLatitude();
+            coordinates[1] = lookAt.getLongitude();
+            coordinates[2] = lookAt.getRange();
+            return coordinates;
+        }
+
+
+        function updateGoogleSkyCoordinates(result) {
+            var element = document.getElementById("lblStatus");
+            var arrayResult = result.toArray();
+            setTimeout(function () {
+                var lookAt = ge.getView().copyAsLookAt(ge.ALTITUDE_RELATIVE_TO_GROUND);
+                lookAt.setLatitude(arrayResult[0]);
+                lookAt.setLongitude(arrayResult[1]);
+                lookAt.setRange(arrayResult[2]);
+                lookAt.setHeading(0); // Always have heading set to North.
+                ge.getView().setAbstractView(lookAt);
+            }, 1000);
+
+        }
+
+        function addPlacemarkWithIcon(result) {
+            var arrayResult = result.toArray();
+            // Create the placemark.
+            var placemark = ge.createPlacemark('');
+            // Define a custom icon.
+            var icon = ge.createIcon('');
+            icon.setHref(arrayResult[2]);
+            var style = ge.createStyle(''); //create a new style
+            style.getIconStyle().setIcon(icon); //apply the icon to the style
+            style.getIconStyle().setScale(5.0);
+            placemark.setStyleSelector(style); //apply the style to the placemark
+
+            // Set the placemark's location.  
+            var point = ge.createPoint('');
+            point.setLatitude(arrayResult[0]);
+            point.setLongitude(arrayResult[1]);
+            placemark.setGeometry(point);
+
+            // Add the placemark to Earth.
+            ge.getFeatures().appendChild(placemark);
+        }
+
+        function addPlacemark(result) {
+            var arrayResult = result.toArray();
+            // Create the placemark.
+            var placemark = ge.createPlacemark('');
+            placemark.setName(arrayResult[2]);
+
+            // Set the placemark's location.  
+            var point = ge.createPoint('');
+            point.setLatitude(arrayResult[0]);
+            point.setLongitude(arrayResult[1]);
+            placemark.setGeometry(point);
+
+            // Add the placemark to Earth.
+            ge.getFeatures().appendChild(placemark);
+        }
+    </script>
+
+</head>
+<body style="padding: 0; margin: 0">
+   <div id="map3d" style="top:0; left:0; position:relative;" onmousedown="mouseDown(event);">
+</div>
+	
+</body>
+</html>
